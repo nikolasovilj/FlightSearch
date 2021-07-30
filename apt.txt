@@ -1,8 +1,0 @@
-sudo apt install python3-dev libpq-dev
-pip install psycopg2
-
-
-sudo apt install postgresql-client-common
-sudo apt install postgresql-client
-
-
