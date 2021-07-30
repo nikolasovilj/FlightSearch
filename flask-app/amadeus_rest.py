@@ -41,6 +41,8 @@ def make_request(src_iata, dest_iata, departure_date, return_date, numOfAdults, 
     
     data = list()
     
+    return 404, None
+
     for item in res['data']:
         row = dict()
         row['numOfavSeats'] = item['numberOfBookableSeats']
