@@ -77,9 +77,6 @@ def search():
 
         if len(flights) == 0:
             res = make_request(data['src_iata'], data['dest_iata'], data['dd'], data['rd'], data['numOfAdults'], data['currency'])
-            if res[0] == 404:
-                flash("nažalost ne postoje takvi letovi")
-                return render_template("index.html")
             if res[0] != 200:
                 return f"Amadeus API doesn't work {res.status_code}", 500
             else:
