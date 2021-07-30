@@ -1,0 +1,76 @@
+{% extends './base.html' %}
+{% block head  %}<title>Flight search</title>{% endblock %}
+
+{%block body %}
+{% for message in get_flashed_messages() %}
+
+<style>
+	.message {
+		padding-top: 15px;
+		padding-bottom: 0px;
+	}
+</style>
+
+<p class="message"><b>{{message}}</b></p>
+{% endfor %}
+<style>
+	body {
+    text-align: center;
+	}
+	form {
+		position: relative;
+		padding-top: 30px;
+		padding-bottom: 30px;
+		padding-right: 5px;
+		padding-left: 5px;
+		box-sizing: border-box;
+		width:90%;
+		display: inline-block;
+	}
+	input[name="src_iata"] {
+		width: 50px;
+		text-align: center;
+	}
+	input[name="dest_iata"] {
+		width: 50px;
+		text-align: center;
+	}
+	input[name="numOfAdults"] {
+		width: 50px;
+		text-align: center;
+	}
+</style>
+
+
+<form action="/search" method="POST">
+	<label>source IATA: </label>
+	<input type="text" name="src_iata" />
+	
+	<label>destination IATA: </label>
+	<input type="text" name="dest_iata" />
+	
+	<label>number of travelers: </label>
+	<input type="text" name="numOfAdults">
+	
+	<label>departure date: </label>
+	<input type="date" name="dd"/>
+	
+	<label>return date: </label>
+	<input type="date" name="rd"/>
+
+	<label>currency</label>
+	<select name="currency">
+		<option value="EUR">EUR</option>
+		<option value="USD">USD</option>
+		<option value="HRK">HRK</option>
+	</select>	
+
+	<input type="submit" value="submit" />
+
+</form>
+
+{% block table_results %}
+
+{% endblock %}
+
+{% endblock %}

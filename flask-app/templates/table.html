@@ -1,0 +1,54 @@
+{% extends "index.html" %}
+
+{% block table_results %}
+
+<style>
+.table td {
+    text-align: center;
+}
+.table th {
+    text-align: center;   
+}
+</style>
+
+<br>
+<p style="padding-bottom: 15px;"><b>{{ dist_msg }}</b></p>
+
+<div class="table-responsive">
+<table class="table table-bordered table-hover">
+    <thead class="table-dark">
+    <tr>
+        <th>Source IATA</th>
+        <th>Destination IATA</th>
+        <th>Departure Date</th>
+        <th>Departure - number of transfers</th>
+        <th>Duration</th>
+        <th>Return Date</th>
+        <th>Return - number of transfers</th>
+        <th>Last Ticketing Date</th>
+        <th>Seats available</th>
+        <th>Currency</th>
+        <th>Total</th>
+    </tr>
+    </thead>
+    {% for info in data %}
+    <tbody>
+    <tr>
+        <td>{{ info['src_iata'] }}</td>
+        <td>{{ info['dest_iata'] }}</td>
+        <td>{{ info['departureDate'] }}</td>
+        <td>{{ info['departureNumOfTransfers'] }}</td>
+        <td>{{ info['duration'].split("T")[1].lower() }}</td>
+        <td>{{ info['returnDate'] }}</td>
+        <td>{{ info['returnNumOfTransfers'] }}</td>
+        <td>{{ info['lastTicketingDate'] }}</td>
+        <td>{{ info['numOfavSeats'] }}</td>
+        <td>{{ info['currency'] }}</td>
+        <td>{{ info['total'] }}</td>
+    </tr>
+    </tbody>
+    {% endfor %}
+
+</table>
+</div>
+{% endblock %}

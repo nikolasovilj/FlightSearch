@@ -1,0 +1,11 @@
+version: '3.3'
+
+services:
+  postgresql:
+    image: 'bitnami/postgresql:latest'
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRESQL_DATABASE=king-ict
+      - POSTGRESQL_USERNAME=king-ict
+      - POSTGRESQL_PASSWORD=king-ict
