@@ -39,8 +39,10 @@ def search():
         #data['return_date'] = request.form["rd"]
         #data['currency'] = request.form["currency"]
         #data['numOfAdults'] = request.form["numOfAdults"]
-        
-        
+        data = dict(data)
+        data['src_iata'] = data['src_iata'].upper()
+        data['dest_iata'] = data['dest_iata'].upper()
+
         for key in data:
             if data[key] is None or len(data[key]) == 0:
                 flash(f"You must enter {key}!")
