@@ -15,7 +15,6 @@ def get_token():
 
 
     res = r.post(base_url, data=data, headers=headers)
-    #print(res.text)
 
     res = json.loads(res.text)
 
@@ -31,7 +30,6 @@ def make_request(src_iata, dest_iata, departure_date, return_date, numOfAdults, 
 
     base_url = f"https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode={src_iata}&destinationLocationCode={dest_iata}&departureDate={departure_date}&returnDate={return_date}&adults={numOfAdults}&nonStop=false&max=20&currencyCode={currency}"
     
-    #print(header)
     print(base_url)
 
     res = r.get(base_url, headers = header)
