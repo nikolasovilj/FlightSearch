@@ -1,7 +1,7 @@
 import requests as r
 import json
 
-def get_token():
+def _get_token():
 
     headers = {"Content-Type": "application/x-www-form-urlencoded"}
 
@@ -23,7 +23,7 @@ def get_token():
 
 
 def make_request(src_iata, dest_iata, departure_date, return_date, numOfAdults, currency):
-    token = get_token()
+    token = _get_token()
 
     header = dict()
     header['Authorization'] = "Bearer " + token
@@ -37,8 +37,9 @@ def make_request(src_iata, dest_iata, departure_date, return_date, numOfAdults, 
     
     res = res.json()
     
+    print(res)
+
     data = list()
-    
 
     for item in res['data']:
         row = dict()

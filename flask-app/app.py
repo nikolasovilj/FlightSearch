@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, flash, redirect
 import json
 import datetime
 import requests as r
-from amadeus_rest import get_token, make_request
+from amadeus_rest import make_request
 from flask_sqlalchemy import SQLAlchemy
 from distance import haversine
 import psycopg2 as pg
@@ -17,7 +17,6 @@ app.secret_key = "top-secret"
 db = SQLAlchemy(app)
 
 airport = db.Table('airports', db.metadata, autoload=True, autoload_with=db.engine)
-flight = db.Table('flights', db.metadata, autoload=True, autoload_with=db.engine)
 
 @app.route("/", methods=["GET"])
 def pocetna():
@@ -27,12 +26,6 @@ def pocetna():
 @app.route("/search", methods=["POST"])
 def search():
     data = request.form
-    #data['src_iata'] = request.form["src_iata"]
-    #data['dest_iata'] = request.form["dest_iata"]
-    #data['departure_date'] = request.form["dd"]
-    #data['return_date'] = request.form["rd"]
-    #data['currency'] = request.form["currency"]
-    #data['numOfAdults'] = request.form["numOfAdults"]
     data = dict(data)
     data['src_iata'] = data['src_iata'].upper()
     data['dest_iata'] = data['dest_iata'].upper()
@@ -43,8 +36,12 @@ def search():
             return redirect("/")
 
     try:
-        datetime.date.fromisoformat(data['rd'])
-        datetime.date.fromisoformat(data['dd'])
+        if datetime.date.fromisoformat(data['dd']) < datetime.date.today():
+            flash("Departure cannot be before today.")
+            return redirect("/")
+        if datetime.date.fromisoformat(data['rd']) < datetime.date.fromisoformat(data['dd']):
+            flash("Return date cannot be before departure date.")
+            return redirect("/")
     except Exception as e:
         return f"{e}", 400
     if len(data['src_iata']) != 3 or len(data['dest_iata']) != 3:
